@@ -163,43 +163,10 @@ def predict_image_at_starting_level(image, start_level, n):
     return predicted_image
 
 
-import matplotlib.pyplot as plt
+imageArray = data.load_gray_data(10)[3]
+image = np.array(imageArray).reshape(32, 32)
+for level in range(1, 12):
+    pred_image = predict_image_at_starting_level(image, level, 32)
+    data.show_image(pred_image)
+    data.show_image(pred_image - image)
 
-imageArray = data.load_gray_data(1000)
-
-all_maxes = []
-for img in imageArray:
-    image = np.array(img).reshape(32, 32)
-    maxes = []
-    for level in range(1, 12):
-        pred_image = predict_image_at_starting_level(image, level, 32)
-        # print("max of level " + str(level) + str(max(np.array(pred_image - image).flatten()))) # data.show_image(pred_image - image)
-        # print("LEVEL " + str(level))
-        maxes.append(max(np.array(pred_image - image).flatten()))
-        # print(max(np.array(pred_image - image).flatten()))
-        # print(np.array(pred_image - image).flatten())
-    # data.show_image(image)
-    # print(maxes)
-    all_maxes.append(maxes)
-a1 = np.array([[1,2,3],
-               [10, 20, 30],
-               [12, 13, 14]])
-a2 = np.array([[10, 20, 30],
-               [1,2,3],
-               [12, 13, 14]])
-# print(max(map(max, a1)))
-# print(a1.flatten())
-
-ar1 = [10, 8, 4]
-ar2 = [12, 9, 5]
-ar3 = [11, 10, 6]
-ars = [ar1, ar2, ar3]
-
-print([np.mean(col) for col in zip(*all_maxes)])
-
-
-# plt.hist(np.array((pred_image - image)).flatten())
-# plt.title('Pixel Intensity Distribution')
-# plt.xlabel('pixel intensity')
-# plt.ylabel('number of pixels')
-# plt.show()
